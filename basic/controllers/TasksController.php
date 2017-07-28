@@ -32,12 +32,7 @@ class TasksController extends Controller {
             ->from('tasks')
             ->innerJoin('users', 'users.id = tasks.user_id')
             ->all();
-//        $data['tasksWithoutUser'] = (new \yii\db\Query())
-//            ->select(['tasks.id','title', 'name', 'description', 'status', 'created_at'])
-//            ->from('tasks')
-//            ->innerJoin('users', 'users.id = tasks.user_id')
-//            ->where(['user_id' => null])
-//            ->all();
+
         
         $data['tasksWithoutUser'] = Tasks::find()->where(['user_id' => null])->all();
         $data['users'] = Users::find()->select(['name' => 'name', 'id' => 'id'])->all();
