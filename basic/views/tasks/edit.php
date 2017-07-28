@@ -44,14 +44,14 @@
 <?php
 $this->registerJs( <<< EOT_JS
     $(document).ready(function(){
-        console.log('ok');
+
         var url = window.location.href;
         var id = url.split(/[? ]+/).pop(); 
         id = id.split(/[= ]+/).pop();
 
 //GET CONTENT
         $.get('gettask?id='+id, function(data){
-            console.log(data)
+
             var task = data.task;
             var users = data.users;
             var options = '';
@@ -85,7 +85,7 @@ $this->registerJs( <<< EOT_JS
                     url:'delete?id='+task_id,
                     method: 'delete',
                     success: function(data){
-                        console.log(data);
+
                         window.location.replace('/tasks');                   
                     }
                 })
@@ -108,12 +108,12 @@ $this->registerJs( <<< EOT_JS
                     url: 'update?id='+id,
                     data: {title: title, description: description, user_id: user_id, status: status},
                     success: function(data){
-                        console.log(data);
+
                         if(!data.errors){
                         responses += '<div class="card-panel green darken-1 responses"><span class="white-text">User has been modified</span></div>';
                         $('.success').append(responses).trigger('contentChanged');                        
                         } else {
-                            console.log(data.errors);
+
                             responses += '\<div class="card-panel red darken-1 responses">';
                             for(key in data.errors){
                                 data.errors[key].forEach(function(el){

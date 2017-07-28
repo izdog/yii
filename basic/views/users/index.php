@@ -57,7 +57,6 @@ $this->registerJs( <<< EOT_JS
 
 //GET CONTENT 
     $.get('users/test', function(data){
-                console.log(data);
 
                 var table = '';
                 var options = '';
@@ -101,9 +100,9 @@ $this->registerJs( <<< EOT_JS
             data: {name: name, email: email},
             
             success: function(data){
-                console.log(data.errors);
+
                  if(!data.errors){
-                    console.log(data);
+
                     var table = '<tr id="user'+data.id+'">';
                         var option = '<option value="'+data.id+'">'+data.name+'</option>';
 
@@ -123,7 +122,7 @@ $this->registerJs( <<< EOT_JS
                         $('#user').append(option).trigger('contentChanged');
                         $('.success').append(responses).trigger('contentChanged');
                 } else {
-                    console.log(data);
+
                     responses += '\<div class="card-panel red darken-1 responses">';
                     for(key in data.errors){
                         data.errors[key].forEach(function(el){
@@ -136,7 +135,6 @@ $this->registerJs( <<< EOT_JS
             },
 
             error: function(data){
-                console.log(data);
             }
         
         });
@@ -148,12 +146,11 @@ $this->registerJs( <<< EOT_JS
     $('#user-contents').on('click', '.delete-user', function(){
             var id = $(this).val();
             var responses = '';
-            console.log(id);
+
             $.ajax({
                 url: 'users/delete?id='+id,
                 type: 'delete',
                 success: function(data){
-                    console.log(data)
                     $('#user'+id).remove();
                     responses += '\<div class="card-panel green darken-1 responses"><span class="white-text">'+data+'</span></div>';
                     $('.success').append(responses).trigger('contentChanged');

@@ -47,14 +47,11 @@
 <?php
 $this->registerJs( <<< EOT_JS
     $(document).ready(function(){
-        console.log('ok');
+
         
 //GET CONTENT 
         $.get('tasks/getdata', function(data){
-            console.log(data);
-
-
-
+   
             var options = '';
             var tasksWithUser = data.tasksWithUser;
             var tasksWithoutUser = data.tasksWithoutUser;
@@ -67,7 +64,7 @@ $this->registerJs( <<< EOT_JS
             
             var content = createTableTask(tasksWithUser, true);
             var contentWithoutUser = createTableTask(tasksWithoutUser, false, true);
-            console.log(contentWithoutUser);
+            
             $('thead').append(content.thead);
             $('#users').append(options).trigger('contentChanged');
             $('#tasks-contents').append(contentWithoutUser.tbody);
@@ -84,7 +81,7 @@ $this->registerJs( <<< EOT_JS
                 url:'tasks/delete?id='+task_id,
                 method: 'delete',
                 success: function(data){
-                    console.log(data);
+
                     $('#task'+task_id).remove();
                     responses += '\<div class="card-panel green darken-1 responses"><span class="white-text">'+data+'</span></div>';
                     $('.success').append(responses).trigger('contentChanged');                
@@ -108,23 +105,21 @@ $this->registerJs( <<< EOT_JS
                     url: 'tasks/store',
                     data: {title: title, description: description, user_id: user_id},
                     success: function(data){
-                        console.log(data);
+
                         if(!data.errors){
-                        for(key in data){
-                            console.log(data[key]);
-                        }   
-                        var content = createTableTask(data, false, false);
-                        if(username === 'Choose your user'){
-                            username = 'Not associated with a user'
-                        };
-                        console.log(content.tbody);
+ 
+                            var content = createTableTask(data, false, false);
+                            if(username === 'Choose your user'){
+                                username = 'Not associated with a user'
+                            };
+
                         
-                        $('#tasks-contents').append(content.tbody);
-                        $('#tasks-contents tr:last-child td:nth-child(6)').append(username);
-                        responses += '<div class="card-panel green darken-1 responses"><span class="white-text">Tasks has been added</span></div>';
-                        $('.success').append(responses).trigger('contentChanged');                        
+                            $('#tasks-contents').append(content.tbody);
+                            $('#tasks-contents tr:last-child td:nth-child(6)').append(username);
+                            responses += '<div class="card-panel green darken-1 responses"><span class="white-text">Tasks has been added</span></div>';
+                            $('.success').append(responses).trigger('contentChanged');                        
                         } else {
-                            console.log(data.errors);
+
                             responses += '\<div class="card-panel red darken-1 responses">';
                             for(key in data.errors){
                                 data.errors[key].forEach(function(el){

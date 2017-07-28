@@ -111,7 +111,7 @@ $this->registerJs( <<< EOT_JS
                 data: {user_id: user_id, title: title, description: description},
                 
                 success: function(data){
-                    console.log(data);
+
                     tbody += '<tr id="task' + data.id + '">';
                     tbody += '<td>' + data.id  + '</td>';
                     tbody += '<td>' + data.title  + '</td>';
@@ -141,7 +141,7 @@ $this->registerJs( <<< EOT_JS
                     url:'/tasks/delete?id='+task_id,
                     method: 'delete',
                     success: function(data){
-                        console.log(data);
+
                         $('#task'+task_id).remove();
                         responses += '\<div class="card-panel green darken-1 responses"><span class="white-text">'+data+'</span></div>';
                         $('.success').append(responses).trigger('contentChanged');
@@ -152,7 +152,7 @@ $this->registerJs( <<< EOT_JS
 
 //DELETE USER
         $('.user-button').on('click','.delete-user', function(){
-        console.log('trigger');
+
                $.ajax({
                 method: 'delete',
                 url:'delete?id='+id,

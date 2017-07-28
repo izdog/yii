@@ -36,11 +36,10 @@ $this->registerJs( <<< EOT_JS
         var url = window.location.href;
         var id = url.split(/[? ]+/).pop(); 
         id = id.split(/[= ]+/).pop();
-        console.log('id = '+id); 
+
 //        GET CONTENT
         $.get('getuser?id='+id, function(data){
         
-            console.log(data);
             $('.submit-buttons').append('<button class="waves-effect waves-light btn red delete-user" value="' + data.id + '">delete user</button>');
             $('#name').val(data.name).siblings('label').addClass('active');
             $('#email').val(data.email).siblings('label').addClass('active');        
@@ -66,7 +65,6 @@ $this->registerJs( <<< EOT_JS
                         responses += '<div class="card-panel green darken-1 responses"><span class="white-text">User has been modified</span></div>';
                         $('.success').append(responses).trigger('contentChanged');                        
                     } else {
-                        console.log(data.errors);
                         responses += '\<div class="card-panel red darken-1 responses">';
                         for(key in data.errors){
                             data.errors[key].forEach(function(el){
@@ -86,7 +84,6 @@ $this->registerJs( <<< EOT_JS
     $('.submit-buttons').on('click', '.delete-user', function(){
             var id = $(this).val();
             var responses = '';
-            console.log(id);
             $.ajax({
                 url: 'delete?id='+id,
                 type: 'delete',
